@@ -156,9 +156,9 @@
                 <hr class="sidebar-divider d-none d-md-block">
 
 
-                 <?php   if( $this->uri->segment('2') == 'setting' ){?>
+                 <?php   if( $this->uri->segment('1') == 'setting' ){?>
           <li class="nav-item active">
-          <?php }elseif($this->uri->segment('2') != 'setting' ) { 
+          <?php }elseif($this->uri->segment('1') != 'setting' ) { 
           ?>
           <li class="nav-item">
           <?php  
