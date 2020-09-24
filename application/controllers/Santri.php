@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Santri extends CI_Controller {
 
 	function __construct(){
@@ -295,4 +297,93 @@ class Santri extends CI_Controller {
 			redirect('santri');
 		}
 	}
+
+		public function exportExcel(){
+			$data['santri']=$this->santri_model->get_all_data()->result();
+
+			require(APPPATH.'third_party/PHPExcel-1.8/Classes/PHPExcel.php');
+			require(APPPATH.'third_party/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
+			
+			// require(APPPATH.'third_party/PHPExcel/PHPExcel.php');
+			// require(APPPATH.'third_party/PHPExcel/PHPExcel/Writer/Excel2007.php');
+
+			$object = new PHPExcel();
+			$object->getProperties()->setCreator("data Santri");
+			$object->getProperties()->setLastModifiedBy("Muchsin");
+			$object->getProperties()->setTitle("Daftar Santri");
+
+			$object->setActiveSheetIndex()->setTitle(0);
+
+			$object->getActiveSheet()->setCellValue('A1', 'NIS');
+			$object->getActiveSheet()->setCellValue('B1', 'Nama Santri');
+			$object->getActiveSheet()->setCellValue('C1', 'Alamat');
+			$object->getActiveSheet()->setCellValue('D1', 'Asrama');
+			$object->getActiveSheet()->setCellValue('E1', 'Total Paket Diterima');
+
+			$baris = 2;
+			// $no = 1;
+
+			foreach ($data['santri'] as $datasantri) {
+				$object->getActiveSheet()->setCellValue('A'.$baris, $datasantri->NIS);
+				$object->getActiveSheet()->setCellValue('B'.$baris, $datasantri->nama_santri);
+				$object->getActiveSheet()->setCellValue('C'.$baris, $datasantri->alamat);
+				$object->getActiveSheet()->setCellValue('D'.$baris, $datasantri->asrama_id);
+				$object->getActiveSheet()->setCellValue('E'.$baris, $datasantri->total_paket_diterima);
+
+				$baris++;
+			}
+			$fileName ="Data_santri".'.xlsx';
+			$object->getActiveSheet()->setTitle('Data Santri');
+
+			// echo $datasantri->total_paket_diterima.'<br>';
+			header('Conten-Type: Application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Conten-Disposition: attachment;filename="'.$fileName.'"');
+			header('Cache-Control: max-age=0');
+
+			$writer=PHPExcel_IOFactory::createwriter($object, 'Excel2007');
+			$writer->save('php://output');
+
+			exit;
+	}
+
+	public function exportExcel2(){
+		require(APPPATH.'third_party/phpoffice/vendor/autoload.php');
+
+
+		$data['santri']=$this->santri_model->get_all_data()->result();
+
+		 $spreadsheet = new Spreadsheet;
+
+          $spreadsheet->setActiveSheetIndex(0)
+                      ->setCellValue('A1', 'NIS')
+                      ->setCellValue('B1', 'Nama Santri')
+                      ->setCellValue('C1', 'Alamat')
+                      ->setCellValue('D1', 'Asrama')
+                      ->setCellValue('E1', 'Total Paket Diterima');
+
+			$kolom = 2;
+         	$nomor = 1;
+
+         foreach($data['santri'] as $datasantri) {
+
+// echo $datasantri->NIS;
+               $spreadsheet->setActiveSheetIndex(0)
+                           ->setCellValue('A' . $kolom, $datasantri->NIS)
+                           ->setCellValue('B' . $kolom, $datasantri->nama_santri)
+                           ->setCellValue('C' . $kolom, $datasantri->alamat)
+                           ->setCellValue('D' . $kolom, $datasantri->asrama_id)
+                           ->setCellValue('E' . $kolom, $datasantri->total_paket_diterima);
+
+               $kolom++;
+               $nomor++;
+
+          }
+          $writer = new Xlsx($spreadsheet);
+
+          header('Content-Type: application/vnd.ms-excel');
+		  header('Content-Disposition: attachment;filename="Data_Santri.xlsx"');
+		  header('Cache-Control: max-age=0');
+
+		  $writer->save('php://output');
+		}
 }

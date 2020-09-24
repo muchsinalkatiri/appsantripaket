@@ -2,7 +2,6 @@
     $this->load->view('v_header');
  ?>
   <link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">  
-
              <div class="dropdown mb-4">
                     <button class="btn btn-sm bg-gray-900 text-gray-100 shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data
@@ -20,6 +19,9 @@
 <!--     <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard') ?>">Home</a></li> -->
     <li class="breadcrumb-item active" aria-current="page">Data Santri</li>
   </ol>
+  <button onclick="printdatasantri()" class="btn btn-sm bg-warning text-gray-100 shadow-sm" type="button"><span class="fa fa-print"></span> Cetak Pdf</button>
+ <a href="<?php echo base_url('santri/exportExcel2/')?>" class=" btn btn-sm bg-success text-gray-100 shadow-sm" ><i class="fa fa-file-excel fa-sm "></i> Export Excel</a>
+ <hr>
 </nav> <!-- tutup breadcumb -->
 
           <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div> 
@@ -125,25 +127,54 @@
  ?>
 
 
-<script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#dataTable').DataTable({
-      columnDefs: [ {
-        targets: [1   ],
-        render: function ( data, type, row ) {
-          return data.length > 10 ?
-          data.substr( 0, 10 ) +'…' :
-          data;
-        }
-      } ]
-    });
-  });
 
-</script>
-<script>   
-    $('#notifications').slideDown('slow').delay(3000).slideUp('slow');
-</script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/buttons.html5.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/buttons.print.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.buttons.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/js/buttons.flash.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+        $('#dataTable').DataTable({
+          "searching": false,
+          dom: 'Bfrtip',
+          buttons: [
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: [ 0,1,2,3,4]
+            },
+            footer: true,
+            title: function(){
+              var printTitle = 'Data Santri';
+              return printTitle
+            },
+            customize: function ( win ) {
+              $(win.document.body)
+              .css( 'font-size', '10pt' )
+              .prepend(
+                '<div style="text-align: center; width: 100%;"><img src="<?php echo base_url(); ?>assets/img/tazkia.jpg" style="position:absolute; opacity: 0.1; width: 800px; height: auto; margin-left: -370px;margin-top: 200px; " /></div>'
+                );
+
+              $(win.document.body).find( 'table' )
+              .addClass( 'compact' )
+              .css( 'font-size', 'inherit' );
+            }
+
+          }
+          ]
+        });
+        $(document).ready(function() {
+          $('.dt-buttons').attr('hidden',true);
+        });
+      });
+
+      function printdatasantri(){
+        $(".buttons-print")[0].click();
+      }
+
+    $('#notifications').slideDown('slow').delay(5000).slideUp('slow');
+  </script>
 
 
