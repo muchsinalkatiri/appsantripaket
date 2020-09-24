@@ -198,17 +198,25 @@ class Santri extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) 
 			redirect();
 
-		$where = array('nis' => $nis);
+		$where = array('NIS' => $nis);
 		$data['santri']=$this->santri_model->get_data_by_id($nis);
 
+		$data['asrama']=$this->santri_model->get_asrama()->result();
 
-		$this->form_validation->set_rules('nis','Nis','required|numeric|is_unique[data_santri.nis]',
-			array(
-				'required'=>'Form Nis Wajib di isi.',
-				'numeric'=>'nis harus diisi dengan angka',
-				// 'exact_length'=>'nis harus berjumlah 10 angka',
-				'is_unique' =>'Nis %s sudah ada')
-			);
+
+		// if($this->input->post('nis') != $data['santri']->NIS) {
+		// 	$is_unique =  '|is_unique[data_santri.nis]';
+		// } else {
+		// 	$is_unique =  '';
+		// }
+
+		// $this->form_validation->set_rules('nis','Nis','required|numeric|'.$is_unique,
+		// 	array(
+		// 		'required'=>'Form Nis Wajib di isi.',
+		// 		'numeric'=>'nis harus diisi dengan angka',
+		// 		// 'exact_length'=>'nis harus berjumlah 10 angka',
+		// 		'is_unique' =>'Nis %s sudah ada')
+		// 	);
 		$this->form_validation->set_rules('nama_santri','Nama Santri','required|min_length[3]',
 			array(
 				'required'=>'Form Nama Wajib di isi.',
@@ -237,15 +245,17 @@ class Santri extends CI_Controller {
 			$total_paket = $this->input->post('total_paket_diterima');
 
 			$data = array(
-				'nis'=>$nis,
+				'NIS'=>$nis,
 				'nama_santri' => $nama_santri,
 				'alamat'=> $alamat,
 				'asrama_id' => $asrama_id,
 				'total_paket_diterima' => $total_paket,
 				);
 			$where = array(
-				'nis' => $nis
+				'NIS' => $nis
 				);
+
+			// echo $this->input->post('nis');
 
 			$update = $this->santri_model->update($where,$data,'data_santri');
 
@@ -254,13 +264,13 @@ class Santri extends CI_Controller {
 					'<div class="alert alert-success">
 					<h5> <span class=" fa fa-check" ></span> '.$nis.' berhasil di perbarui.</h5>
 				</div>');    
-				redirect('admin/mahasiswa');
+				redirect('santri');
 			}else{
 				$this->session->set_flashdata('msg',
 					'<div class="alert alert-danger">
 					<h5> <span class=" fa fa-cross" ></span> '.$nis.' gagal disimpan.</h5>
 				</div>');    
-				redirect('admin/mahasiswa');
+				redirect('santri');
 			}	
 		}
 	}

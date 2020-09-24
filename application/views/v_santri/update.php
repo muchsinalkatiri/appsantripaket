@@ -18,7 +18,7 @@ $this->load->view('v_header');
       <div class="card-header py-3 ">
       </div>
       <div class="card-body">
-        <form class="user" action="<?php echo base_url('santri/update') ?>" method="post" enctype="multipart/form-data">
+        <form class="user" action="<?php echo base_url('santri/update/').$santri->NIS ?>" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="col-sm-12" >
               <div id="notifications">
@@ -36,7 +36,8 @@ $this->load->view('v_header');
               </div> <!-- tutup validasi -->
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="text" class="form-control form-control-user" value="<?php echo $santri->NIS?>" id="nis" placeholder="NIS" name="nis">
+                  <input type="hidden"  class="form-control form-control-user" value="<?php echo $santri->NIS?>" id="nis" placeholder="NIS" name="nis">
+                  <input type="text" disabled  class="form-control form-control-user" value="<?php echo $santri->NIS?>" id="nis" placeholder="NIS" name="nis2">
                 </div>
                 <div class="col-sm-6">
                   <input type="text" class="form-control form-control-user" value="<?php echo $santri->nama_santri?>"" id="nama_santri" name="nama_santri" placeholder="Nama Santri">
