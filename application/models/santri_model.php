@@ -16,14 +16,21 @@ class Santri_model extends CI_Model {
     // return $this->db->get('data_santri');
   }
 
-  public function get_data_by_id($id)
+  public function get_data_by_id($nis)
   {
          // Inner Join dengan table Categories
     $this->db->get('data_santri');
 
-    $query = $this->db->get_where('data_santri', array('data_santri.id_santri' => $id));
+    $query = $this->db->get_where('data_santri', array('data_santri.nis' => $nis));
 
     return $query->row();
+  }
+
+  public function get_asrama()
+  {
+      $this->db->select('*');
+      $this->db->from('data_asrama');
+      return $this->db->get();
   }
 
   public function create($table, $data){
@@ -50,5 +57,36 @@ class Santri_model extends CI_Model {
       return false;
     }
   }
+
+     // Fungsi untuk melakukan proses upload file
+  public function upload_file($filename){
+    $this->load->library('upload'); // Load librari upload
+    
+    $config['upload_path'] = './uploads/excel/';
+    $config['allowed_types'] = 'xlsx';
+    $config['max_size']  = '2048';
+    $config['overwrite'] = true;
+    $config['file_name'] = $filename;
+
+    $this->upload->initialize($config); // Load konfigurasi uploadnya
+    if($this->upload->do_upload('file')){ // Lakukan upload dan Cek jika proses upload berhasil
+      // Jika berhasil :
+      $return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
+      return $return;
+    }else{
+      // Jika gagal :
+      $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
+      return $return;
+    }
+  }
+
+    public function insert_multiple($data){
+    if($this->db->insert_batch('data_santri', $data)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
 }

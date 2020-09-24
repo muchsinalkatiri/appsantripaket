@@ -1,25 +1,28 @@
 <?php 
 $this->load->view('V_header');
 ?>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
           <!-- Content Row -->
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">5 Paket Terbaru</div>
-
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">5 Daftar Paket Terbaru</div>
+                                        
+                      <?php 
+                      $no=1;
+                      foreach ($paket as $data_paket ) {
+                      
+                      ?>
+                      <div class="h6 mb-0 text-gray-800"><?php echo $no++.'.'.$data_paket->nama_paket ?> </div>
+                      <?php } ?>
+                      <br>
+                      <div><a href="<?php echo base_url('datapaket')?>" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-eye fa-sm text-white-50"></i> View All</a></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -30,13 +33,18 @@ $this->load->view('V_header');
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Paket Yang Disita</div>
+                      <?php
+                          $paket_sita = $this->db->query("SELECT COUNT(id_paket) as total_paket_sita FROM data_paket WHERE status_paket = 'Disita'");
+                          $data_total_paket_sita = $paket_sita->result();
+                          $paket_sita_total = $data_total_paket_sita[0]->total_paket_sita;
+                      ?>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $paket_sita_total; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -47,15 +55,27 @@ $this->load->view('V_header');
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Paket Yang Belum Diambil</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                        <?php
+                          $paket_blm_ambil = $this->db->query("SELECT COUNT(id_paket) as total_paket_blm_ambil FROM data_paket WHERE status_paket = 'Belum Diambil'");
+                          $data_total_paket_blm_ambil = $paket_blm_ambil->result();
+                          $total_blm_ambil = $data_total_paket_blm_ambil[0]->total_paket_blm_ambil;
+
+                          $paket_ambil = $this->db->query("SELECT COUNT(id_paket) as total_paket_ambil FROM data_paket WHERE status_paket = 'Diambil'");
+                          $data_total_paket_ambil = $paket_ambil->result();
+                          $total_ambil = $data_total_paket_ambil[0]->total_paket_ambil;
+                          $total_paket_ambil_dan_belum = $total_ambil + $total_blm_ambil;
+
+                          $persentase_blm_ambil = ($total_blm_ambil * 100)/$total_paket_ambil_dan_belum;
+                      ?>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo round($persentase_blm_ambil); ?>%</div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
@@ -63,6 +83,7 @@ $this->load->view('V_header');
                           </div>
                         </div>
                       </div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800"><?php echo 'Paket yang belum diambil '.$total_blm_ambil.' dari '. $total_paket_ambil_dan_belum; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -71,24 +92,6 @@ $this->load->view('V_header');
                 </div>
               </div>
             </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Content Row -->
 

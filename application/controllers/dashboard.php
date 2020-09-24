@@ -17,7 +17,8 @@ class Dashboard extends CI_Controller {
 		$data['page_title'] = 'Dashboard';
 		// Must login
 
-		$data['5paket']=$this->db_model->get_5paket()->result();
+		$data['paket']=$this->db_model->get_5paket_teratas()->result();
+		// $data['paket_sita']=$this->db_model->get_paket_sita()->result();
 		$this->load->view('v_db',$data);
 	}
 	

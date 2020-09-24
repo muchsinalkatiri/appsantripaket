@@ -65,39 +65,21 @@
         </div>
 
         <!-- Nav Item - Admin -->
+    
+      
+              <!-- Nav Item - Soal Menu -->
         <?php 
-        if($this->session->userdata('level')=='0'){
-          if($page_title == 'Data santri' || $page_title == 'Tambah Data santri' || $page_title == 'Edit Data santri'){?>
+          if( $this->uri->segment('1') == 'santri' ){?>
           <li class="nav-item active">
-          <?php }elseif($page_title != 'Data santri') { 
+          <?php }elseif($this->uri->segment('2') != 'santri' ) { 
           ?>
           <li class="nav-item">
           <?php  
           }
           ?>
           <a class="nav-link" href="<?php echo base_url('santri') ?>">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Data santri</span></a>
-          </li>
-        <?php
-        }
-        ?>
-
-
-      
-              <!-- Nav Item - Soal Menu -->
-        <?php 
-          if( $this->uri->segment('2') == 'soal' ){?>
-          <li class="nav-item active">
-          <?php }elseif($this->uri->segment('2') != 'soal' ) { 
-          ?>
-          <li class="nav-item">
-          <?php  
-          }
-          ?>
-          <a class="nav-link" href="<?php echo base_url('admin/soal/paket_soal') ?>">
             <i class="fas fa-fw fa-question"></i>
-            <span>Data Soal</span></a>
+            <span>Data Santri</span></a>
           </li>
  
               <!-- Divider -->
