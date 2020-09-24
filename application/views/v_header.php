@@ -61,7 +61,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-          User
+          Data Santri & Paket
         </div>
 
         <!-- Nav Item - Admin -->
@@ -78,8 +78,21 @@
           }
           ?>
           <a class="nav-link" href="<?php echo base_url('santri') ?>">
-            <i class="fas fa-fw fa-question"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Data Santri</span></a>
+          </li>
+                  <?php 
+          if( $this->uri->segment('1') == 'paket' ){?>
+          <li class="nav-item active">
+          <?php }elseif($this->uri->segment('2') != 'paket' ) { 
+          ?>
+          <li class="nav-item">
+          <?php  
+          }
+          ?>
+          <a class="nav-link" href="<?php echo base_url('paket') ?>">
+            <i class="fas fa-fw fa-calendar"></i>
+            <span>Data Paket</span></a>
           </li>
  
               <!-- Divider -->
@@ -87,83 +100,74 @@
 
               <!-- Heading -->
               <div class="sidebar-heading">
-                Ujian
+                Laporan
               </div>
               <!-- Nav Item - Jawaban -->
         <?php 
-          if( $this->uri->segment('3') == 'sesi_ujian' ){?>
+          if( $this->uri->segment('2') == 'laporandatapaket' ){?>
           <li class="nav-item active">
-          <?php }elseif($this->uri->segment('3') != 'sesi_ujian' ) { 
+          <?php }elseif($this->uri->segment('2') != 'laporandatapaket' ) { 
           ?>
           <li class="nav-item">
           <?php  
           }
           ?>
-                <a class="nav-link" href="<?php echo base_url('admin/ujian/sesi_ujian') ?>">
-                  <i class="fas fa-fw fa-reply"></i>
-                  <span>Sesi Ujian</span></a>
-                </li>
+          <a class="nav-link" href="<?php echo base_url('laporan/laporandatapaket') ?>">
+            <i class="fas fa-fw fa-reply"></i>
+            <span>Laporan Data Paket</span></a>
+          </li>
 
-    <?php 
-    if( $this->uri->segment('3') == 'data_ujian' || $this->uri->segment('3') == 'data_nilai' ){?>
-      <li class="nav-item active">
-    <?php }elseif($this->uri->segment('3') != 'data_ujian' ) { ?>
-      <li class="nav-item ">
-    <?php  
-       }
-    ?>
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <i class="fas fa-database"></i>
-          <span>Ujian</span>
-        </a>
-    <?php 
-    if( $this->uri->segment('3') == 'data_ujian' || $this->uri->segment('3') == 'data_nilai' ){?>
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-    <?php }elseif($this->uri->segment('3') != 'data_ujian' ) { ?>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-    <?php  
-       }
-    ?>
-          <div class="bg-white py-2 collapse-inner rounded">
-          <?php 
-          if( $this->uri->segment('3') == 'data_ujian' ){?>
-            <a class="collapse-item active" href="<?php echo base_url('admin/ujian/data_ujian') ?>">Data Ujian</a>
-          <?php }elseif($this->uri->segment('3') != 'data_ujian' ) { 
-          ?>
-            <a class="collapse-item " href="<?php echo base_url('admin/ujian/data_ujian') ?>">Data Ujian</a>
-          <?php  
-          }
-          ?>
-        <?php 
-          if( $this->uri->segment('3') == 'data_nilai' ){?>
-            <a class="collapse-item active" href="<?php echo base_url('admin/ujian/data_nilai') ?>">Data Nilai</a>
-        <?php }elseif($this->uri->segment('3') != 'data_nilai' ) { 
-          ?>
-            <a class="collapse-item" href="<?php echo base_url('admin/ujian/data_nilai') ?>">Data Nilai</a>
-        <?php  
-          }
-          ?>
-          </div>
-        </div>
-      </li>
-
-
-        <?php 
-          if( $this->uri->segment('2') == 'pengiriman' ){?>
+                 <?php   if( $this->uri->segment('2') == 'laporan_kategori_dan_sita' ||  $this->uri->segment('2') == 'laporankategori' ||  $this->uri->segment('2') == 'laporanpaketsita' ){?>
           <li class="nav-item active">
-          <?php }elseif($this->uri->segment('2') != 'pengiriman' ) { 
+          <?php }elseif($this->uri->segment('2') != 'laporan_kategori_dan_sita' ||  $this->uri->segment('2') == 'laporankategori' ||  $this->uri->segment('2') == 'laporanpaketsita ' ) { 
           ?>
           <li class="nav-item">
           <?php  
           }
           ?>
-                <a class="nav-link" href="<?php echo base_url('admin/pengiriman') ?>">
-                  <i class="fas fa-fw fa-paper-plane"></i>
-                  <span>Pengiriman</span></a>
+                <a class="nav-link" href="<?php echo base_url('laporan/laporan_kategori_dan_sita') ?>">
+                  <i class="fas fa-fw fa-eye"></i>
+                  <span>Laporan Kategori dan Paket Disita</span></a>
                 </li>
+
+
+
+
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
+
+
+                 <?php   if( $this->uri->segment('2') == 'data_user' ){?>
+          <li class="nav-item active">
+          <?php }elseif($this->uri->segment('2') != 'data_user' ) { 
+          ?>
+          <li class="nav-item">
+          <?php  
+          }
+          ?>
+                <a class="nav-link" href="<?php echo base_url('data_user') ?>">
+                  <i class="fas fa-fw fa-eye"></i>
+                  <span>Data User</span></a>
+                </li>
+
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+
+                 <?php   if( $this->uri->segment('2') == 'setting' ){?>
+          <li class="nav-item active">
+          <?php }elseif($this->uri->segment('2') != 'setting' ) { 
+          ?>
+          <li class="nav-item">
+          <?php  
+          }
+          ?>
+                <a class="nav-link" href="<?php echo base_url('setting') ?>">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Setting</span></a>
+                </li>
 
                 <!-- Sidebar Toggler (Sidebar) -->
                 <div class="text-center d-none d-md-inline">

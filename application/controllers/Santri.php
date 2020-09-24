@@ -298,53 +298,6 @@ class Santri extends CI_Controller {
 		}
 	}
 
-		public function exportExcel(){
-			$data['santri']=$this->santri_model->get_all_data()->result();
-
-			require(APPPATH.'third_party/PHPExcel-1.8/Classes/PHPExcel.php');
-			require(APPPATH.'third_party/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
-			
-			// require(APPPATH.'third_party/PHPExcel/PHPExcel.php');
-			// require(APPPATH.'third_party/PHPExcel/PHPExcel/Writer/Excel2007.php');
-
-			$object = new PHPExcel();
-			$object->getProperties()->setCreator("data Santri");
-			$object->getProperties()->setLastModifiedBy("Muchsin");
-			$object->getProperties()->setTitle("Daftar Santri");
-
-			$object->setActiveSheetIndex()->setTitle(0);
-
-			$object->getActiveSheet()->setCellValue('A1', 'NIS');
-			$object->getActiveSheet()->setCellValue('B1', 'Nama Santri');
-			$object->getActiveSheet()->setCellValue('C1', 'Alamat');
-			$object->getActiveSheet()->setCellValue('D1', 'Asrama');
-			$object->getActiveSheet()->setCellValue('E1', 'Total Paket Diterima');
-
-			$baris = 2;
-			// $no = 1;
-
-			foreach ($data['santri'] as $datasantri) {
-				$object->getActiveSheet()->setCellValue('A'.$baris, $datasantri->NIS);
-				$object->getActiveSheet()->setCellValue('B'.$baris, $datasantri->nama_santri);
-				$object->getActiveSheet()->setCellValue('C'.$baris, $datasantri->alamat);
-				$object->getActiveSheet()->setCellValue('D'.$baris, $datasantri->asrama_id);
-				$object->getActiveSheet()->setCellValue('E'.$baris, $datasantri->total_paket_diterima);
-
-				$baris++;
-			}
-			$fileName ="Data_santri".'.xlsx';
-			$object->getActiveSheet()->setTitle('Data Santri');
-
-			// echo $datasantri->total_paket_diterima.'<br>';
-			header('Conten-Type: Application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			header('Conten-Disposition: attachment;filename="'.$fileName.'"');
-			header('Cache-Control: max-age=0');
-
-			$writer=PHPExcel_IOFactory::createwriter($object, 'Excel2007');
-			$writer->save('php://output');
-
-			exit;
-	}
 
 	public function exportExcel2(){
 		require(APPPATH.'third_party/phpoffice/vendor/autoload.php');

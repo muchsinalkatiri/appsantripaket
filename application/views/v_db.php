@@ -22,7 +22,7 @@ $this->load->view('V_header');
                       <div class="h6 mb-0 text-gray-800"><?php echo $no++.'.'.$data_paket->nama_paket ?> </div>
                       <?php } ?>
                       <br>
-                      <div><a href="<?php echo base_url('datapaket')?>" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-eye fa-sm text-white-50"></i> View All</a></div>
+                      <div><a href="<?php echo base_url('paket')?>" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-eye fa-sm text-white-50"></i> View All</a></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
