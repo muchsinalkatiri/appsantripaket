@@ -31,12 +31,12 @@ class Paket_model extends CI_Model {
     // return $this->db->get('data_santri');
   }
 
-  public function get_data_by_id($nis)
+  public function get_data_by_id($id_paket)
   {
          // Inner Join dengan table Categories
-    $this->db->get('data_santri');
+    $this->db->get('data_paket');
 
-    $query = $this->db->get_where('data_santri', array('data_santri.nis' => $nis));
+    $query = $this->db->get_where('data_paket', array('data_paket.id_paket' => $id_paket));
 
     return $query->row();
   }

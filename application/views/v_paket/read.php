@@ -70,7 +70,7 @@
                 </td>
                 <td><center>
                  <a href="#" class="btn btn-success btn-circle" data-toggle="modal" data-target="#ModalDetail<?php echo $data_paket->id_paket; ?>" ><i class="fa fa-info"></i></a>
-                  <a href="<?php echo base_url(); ?>" class="btn btn-primary btn-circle"  ><i class="fa fa-edit"></i></a>
+                  <a href="<?php echo base_url('paket/update/'.$data_paket->id_paket); ?>" class="btn btn-primary btn-circle"  ><i class="fa fa-edit"></i></a>
                   <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#ModalHapus<?php echo $data_paket->id_paket; ?>" ><i class="fa fa-trash"></i></a>
                 </center></td>
               </tr>
@@ -173,7 +173,7 @@
                 </td>
                 <td><center>
                  <a href="#" class="btn btn-success btn-circle" data-toggle="modal" data-target="#ModalDetail<?php echo $data_paket2->id_paket; ?>" ><i class="fa fa-info"></i></a>
-                  <a href="<?php echo base_url(); ?>" class="btn btn-primary btn-circle"  ><i class="fa fa-edit"></i></a>
+                  <a href="<?php echo base_url('paket/update/'.$data_paket2->id_paket); ?>" class="btn btn-primary btn-circle"  ><i class="fa fa-edit"></i></a>
                   <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#ModalHapus<?php echo $data_paket2->id_paket; ?>" ><i class="fa fa-trash"></i></a>
                 </center></td>
               </tr>

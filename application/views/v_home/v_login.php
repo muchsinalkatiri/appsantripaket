@@ -55,20 +55,20 @@
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" onclick="myFunction()"" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember me</label>
+                        <label class="custom-control-label" for="customCheck">Show Password</label>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" onclick="myFunction()"" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Show Password</label>
+                        <input type="checkbox" class="custom-control-input" id="rememberme">
+                        <label class="custom-control-label" for="rememberme">Remember me</label>
                       </div>
                     </div>
                     <button type="submit" class="btn bg-gray-900 text-gray-100 btn-user btn-block">
                       Login
                     </button>
                     <hr>
-                    <a href="<?php echo base_url('forgotpassword') ?>" class="btn bg-gray-400 text-gray-900 btn-user btn-block">
+                    <a href="<?php echo base_url('lupas/tampil') ?>" class="btn bg-gray-400 text-gray-900 btn-user btn-block">
                       Forgot Password?
                     </a>
                   </form>

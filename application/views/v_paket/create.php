@@ -37,26 +37,55 @@ $this->load->view('v_header');
 							</div> <!-- tutup validasi -->
 							<div class="form-group row">
 								<div class="col-sm-6 mb-3 mb-sm-0">
-									<input type="text" class="form-control form-control-user" value="<?php echo set_value('nama_paket'); ?>" id="nama_paket" placeholder="Nama Paket" name="nama_paket">
+									<input type="text" class="form-control" value="<?php echo set_value('nama_paket'); ?>" id="nama_paket" placeholder="Nama Paket" name="nama_paket">
 								</div>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-user time" value="<?php echo set_value('tanggal_diterima'); ?>" id="tanggal_diterima" name="tanggal_diterima" placeholder="Tanggal Diterima">
+									<input type="text" class="form-control time" value="<?php echo set_value('tanggal_diterima'); ?>" id="tanggal_diterima" name="tanggal_diterima" placeholder="Tanggal Diterima">
 								</div>
 							</div>
 							<div class="row" id="notifications2" > <!-- open validasi -->
 								<div class="col-sm-6">
-									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger text-uppercase mb-1"><?php echo form_error('alamat'); ?></div>
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger text-uppercase mb-1"><?php echo form_error('nama_kategori'); ?></div>
 								</div>
 								<div class="col-sm-6">
-									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger text-uppercase mb-1"><?php echo form_error('asrama'); ?></div>
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger text-uppercase mb-1"><?php echo form_error('nama_santri'); ?></div>
 								</div> 
 							</div> <!-- tutup validasi -->
 							<div class="form-group row">
-								<div class="col-sm-6 mb-3 mb-sm-0">
-									<input type="text" class="form-control form-control-user"  id="notlp2" value="<?php echo set_value('alamat'); ?>" name="alamat" placeholder="Alamat...">
+								<div class="col-sm-6" >
+									<select class="form-control" name="nama_kategori">
+					                <option value="" disabled selected>Nama Kategori</option>
+								   <?php                                
+								        foreach ($kategori as $data_kategori) {  
+										  echo "<option value='".$data_kategori->id_kategori."'>".$data_kategori->nama_kategori."</option>";
+										  }
+										  echo"
+										</select>"
+										?>
 								</div>
 								<div class="col-sm-6" >
-									<select class="form-control" name="asrama">
+									<select class="form-control" name="penerima_paket">
+					                <option value="" disabled selected>Penerima Paket</option>
+								   <?php                                
+								        foreach ($santri as $data_santri) {  
+										  echo "<option value='".$data_santri->nis."'>".$data_santri->nama_santri."</option>";
+										  }
+										  echo"
+										</select>"
+										?>
+								</div>
+							</div>
+							<div class="row" id="notifications4"> <!-- open validasi -->
+								<div class="col-sm-6">
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('nama_asrama'); ?></div>
+								</div>
+								<div class="col-sm-6">
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('pengirim_paket'); ?></div>
+								</div>
+							</div> <!-- tutup validasi -->
+							<div class="form-group row">
+								<div class="col-sm-6" >
+									<select class="form-control" name="nama_asrama">
 					                <option value="" disabled selected>Asrama</option>
 								   <?php                                
 								        foreach ($asrama as $data_asrama) {  
@@ -66,39 +95,39 @@ $this->load->view('v_header');
 										</select>"
 										?>
 								</div>
+								<div class="col-sm-6 ">
+									<input type="text" class="form-control" value="<?php echo set_value('pengirim_paket'); ?>" id="pengirim_paket" name="pengirim_paket" placeholder="Pengirim Paket">
+								</div>
 							</div>
-							<div class="row" id="notifications4"> <!-- open validasi -->
+							<div class="row" id="notifications5"> <!-- open validasi -->
 								<div class="col-sm-6">
-									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('total_paket_diterima'); ?></div>
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('isi_paket_sita'); ?></div>
 								</div>
 								<div class="col-sm-6">
-									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('foto'); ?></div>
+									<div style="padding-left: 15px; " class="text-xs font-weight-bold text-danger  text-uppercase mb-1"><?php echo form_error('status_paket'); ?></div>
 								</div>
 							</div> <!-- tutup validasi -->
 							<div class="form-group row">
-								<div class="col-sm-6 mb-3 mb-sm-0">
-									<input type="number"  name="total_paket_diterima" id="total_paket_diterima" class=" form-control form-control-user" value="<?php echo set_value('total_paket_diterima'); ?>"  placeholder="Total Paket" />
-								</div>
 								<div class="col-sm-6 ">
-									<a style="text-decoration: none;" id="btnFile" class="text-gray-600 form-control form-control-user" href="#" onclick="return false;" >Foto</a>
-									<input style="display:none" type="file"  name="foto" id="inputFile"  class=" form-control form-control-user"  />
+									<input type="text" class="form-control" value="<?php echo set_value('isi_paket_sita'); ?>" id="isi_paket_sita" name="isi_paket_sita" placeholder="Isi Paket Sita Paket">
+								</div>
+								<div class="col-sm-6" >
+									<select class="form-control" name="status_paket">
+					                	<option value="" disabled selected>Status Paket</option>
+								   		<option value="Disita">Disita</option>;  
+								   		<option value="Diambil">Diambil</option>;  
+								   		<option value="Belum Diambil">Belum Diambil</option>;  
+									</select>
+									
 								</div>
 							</div>
-						
-							<br>
 							<hr>
 							<br>
 							<button type="submit" class="btn bg-gray-900 text-gray-100 btn-user btn-block">
 								Tambahkan
 							</button>
 						</div>
-						<div class="col-sm-4 ">
-							<center>
-								<h2 >Foto</h2>
-								<img class="card shadow mb-7" id="gambar_nodin"  alt="Preview Gambar" style='width:300px;height:300px; border-radius: 50%;  ' src="<?php echo base_url()."assets/img/default-user.png"?>"> 
-								<h7>Max Size 1 mb</h7>
-							</center>
-						</div>
+		
 					</div>
 				</form>
 			</div>
@@ -117,35 +146,25 @@ $this->load->view('v_header');
 		$('#notifications3').slideDown('slow').delay(5000).slideUp('slow');
 		$('#notifications4').slideDown('slow').delay(5000).slideUp('slow');
 		$('#notifications5').slideDown('slow').delay(5000).slideUp('slow');
-
-		function bacaGambar(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$('#gambar_nodin').attr('src', e.target.result);
-				}
-
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-
-		$("#inputFile").change(function(){
-			bacaGambar(this);
-		});
 	</script>
-	<script type="text/javascript">
-		$(document).ready(function(e) {
-			$('#btnFile').click(function(){
-				$('#inputFile').click();
-			});
+        <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-		});
-	</script>
+        <script src="<?php echo base_url(); ?>assets/vendor/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#dataTable').DataTable({
+            });
+          });
 
-	        <script type="text/javascript">
+          $('#notifications').slideDown('slow').delay(5000).slideUp('slow');
+          $('#notifications1').slideDown('slow').delay(5000).slideUp('slow');
+          $('#notifications2').slideDown('slow').delay(5000).slideUp('slow');
+          $('#notifications3').slideDown('slow').delay(5000).slideUp('slow');
+        </script>
+        <script type="text/javascript">
           $(document).ready(function () {
-            $('.time').datetimepicker({format: 'yyyy-mm-dd hh:ii:ss', todayBtn: true,
+            $('.time').datetimepicker({format: 'yyyy-mm-dd', todayBtn: true,
               autoclose: true,
               pickerPosition: "top-left"});
           });

@@ -201,7 +201,7 @@ class Paket extends CI_Controller {
 			redirect('paket');
 		}
 	}
-		public function create()
+	public function create()
 	{
 		$data['page_title'] = 'Tambah Data Paket';
 		// Must login
@@ -218,38 +218,130 @@ class Paket extends CI_Controller {
 			array(
 				'required'=>'Form ini Wajib di isi.',
 				));
+		$this->form_validation->set_rules('pengirim_paket','Pengirim Paket','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
+		$this->form_validation->set_rules('isi_paket_sita','Isi Paket Disita','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
 
 		if ($this->form_validation->run() == FALSE){
 			$this->load->view('v_paket/create',$data);
 		}
 		else{
-			$nis= $this->input->post('nis');
-			$nama_santri = $this->input->post('nama_santri');
-			$alamat = $this->input->post('alamat');
-			$asrama_id = $this->input->post('asrama');
-			$total_paket = $this->input->post('total_paket_diterima');
+			$nama_paket= $this->input->post('nama_paket');
+			$tanggal_diterima = $this->input->post('tanggal_diterima');
+			$id_kategori = $this->input->post('nama_kategori');
+			$penerima_paket_id = $this->input->post('penerima_paket');
+			$asrama_id = $this->input->post('nama_asrama');
+			$pengirim_paket = $this->input->post('pengirim_paket');
+			$isi_paket_sita = $this->input->post('isi_paket_sita');
+			$status_paket = $this->input->post('status_paket');
+
+			echo $status_paket;
 
 			$data = array(
-				'nis'=>$nis,
-				'nama_santri' => $nama_santri,
-				'alamat'=> $alamat,
+				'nama_paket'=>$nama_paket,
+				'tanggal_diterima' => $tanggal_diterima,
+				'kategori_paket_id'=> $id_kategori,
+				'penerima_paket_id' => $penerima_paket_id,
 				'asrama_id' => $asrama_id,
-				'total_paket_diterima' => $total_paket,
+				'pengirim_paket' => $pengirim_paket,
+				'isi_paket_sita' => $isi_paket_sita,
+				'status_paket' => $status_paket,
 				);
-			$insert = $this->santri_model->create('data_santri',$data);
+			$insert = $this->paket_model->create('data_paket',$data);
 
 			if ($insert) {
 				$this->session->set_flashdata('msg',
 					'<div class="alert alert-success">
-					<h5> <span class=" fa fa-check" ></span> '.$nis.' berhasil ditambahkan.</h5>
+					<h5> <span class=" fa fa-check" ></span> Data berhasil ditambahkan.</h5>
 				</div>');    
-				redirect('santri');
+				redirect('paket');
 			}else{
 				$this->session->set_flashdata('msg',
 					'<div class="alert alert-danger">
-					<h5> <span class=" fa fa-cross" ></span> '.$nis.' gagal ditambahkan.</h5>
+					<h5> <span class=" fa fa-cross" ></span> Data gagal ditambahkan.</h5>
 				</div>');    
-				redirect('santri');
+				redirect('paket');
+			}	
+		}
+	}
+	public function update($id_paket=null)
+	{
+		$data['page_title'] = 'Update Data Paket';
+		// Must login
+
+		$where = array('id_paket' => $id_paket);
+		$data['paket']=$this->paket_model->get_data_by_id($id_paket);
+
+		$data['kategori']=$this->paket_model->get_kategori()->result();
+		$data['santri']=$this->paket_model->get_santri()->result();
+		$data['asrama']=$this->paket_model->get_asrama()->result();
+
+		$this->form_validation->set_rules('nama_paket','Nama Paket','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
+		$this->form_validation->set_rules('tanggal_diterima','Tanggal Diterima','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
+		$this->form_validation->set_rules('pengirim_paket','Pengirim Paket','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
+		$this->form_validation->set_rules('isi_paket_sita','Isi Paket Disita','required',
+			array(
+				'required'=>'Form ini Wajib di isi.',
+				));
+
+		if ($this->form_validation->run() == FALSE){
+			$this->load->view('v_paket/update',$data);
+		}
+		else{
+			$nama_paket= $this->input->post('nama_paket');
+			$tanggal_diterima = $this->input->post('tanggal_diterima');
+			$id_kategori = $this->input->post('nama_kategori');
+			$penerima_paket_id = $this->input->post('penerima_paket');
+			$asrama_id = $this->input->post('nama_asrama');
+			$pengirim_paket = $this->input->post('pengirim_paket');
+			$isi_paket_sita = $this->input->post('isi_paket_sita');
+			$status_paket = $this->input->post('status_paket');
+
+
+			$data = array(
+				'nama_paket'=>$nama_paket,
+				'tanggal_diterima' => $tanggal_diterima,
+				'kategori_paket_id'=> $id_kategori,
+				'penerima_paket_id' => $penerima_paket_id,
+				'asrama_id' => $asrama_id,
+				'pengirim_paket' => $pengirim_paket,
+				'isi_paket_sita' => $isi_paket_sita,
+				'status_paket' => $status_paket,
+				);
+			$where = array(
+				'id_paket' => $id_paket
+				);
+
+			// echo $this->input->post('nama_asrama');
+
+			$update = $this->paket_model->update($where,$data,'data_paket');
+
+			if ($update) {
+				$this->session->set_flashdata('msg',
+					'<div class="alert alert-success">
+					<h5> <span class=" fa fa-check" ></span> Data berhasil di perbarui.</h5>
+				</div>');    
+				redirect('paket');
+			}else{
+				$this->session->set_flashdata('msg',
+					'<div class="alert alert-danger">
+					<h5> <span class=" fa fa-cross" ></span> Data gagal disimpan.</h5>
+				</div>');    
+				redirect('paket');
 			}	
 		}
 	}
