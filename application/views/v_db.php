@@ -13,14 +13,15 @@ $this->load->view('V_header');
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">5 Daftar Paket Terbaru</div>
-                                        
+                         <div class="h6 mb-0 text-gray-800">               
                       <?php 
                       $no=1;
                       foreach ($paket as $data_paket ) {
                       
                       ?>
-                      <div class="h6 mb-0 text-gray-800"><?php echo $no++.'.'.$data_paket->nama_paket ?> </div>
+                      <?php echo '('.$data_paket->nama_paket.')' ?>
                       <?php } ?>
+                       </div>
                       <br>
                       <div><a href="<?php echo base_url('paket')?>" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-eye fa-sm text-white-50"></i> View All</a></div>
                     </div>
@@ -44,7 +45,7 @@ $this->load->view('V_header');
                           $data_total_paket_sita = $paket_sita->result();
                           $paket_sita_total = $data_total_paket_sita[0]->total_paket_sita;
                       ?>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $paket_sita_total; ?></div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800">Jumlah Paket Yang Disita <?php echo $paket_sita_total; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

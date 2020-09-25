@@ -37,10 +37,10 @@ $this->load->view('v_header');
                 <div class="table-responsive">
                   <form class="user" action="<?php echo base_url('setting/restore') ?>" method="post" enctype="multipart/form-data">
           <div class="form-group row ">
-            <div class="col-sm-4">
+            <div class="col-sm-8">
               <input type="file"  class="form-control" value="<?php echo set_value('file_sql'); ?>" required id="file_sql" name="file_sql" placeholder="File Sql" ">
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <button type="submit" class="btn btn-sm btn-danger shadow-sm">
                 Restore
               </button>

@@ -137,19 +137,47 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
+       <?php 
+    if( $this->uri->segment('1') == 'user' ){?>
+      <li class="nav-item active">
+       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-database"></i>
+          <span>User & Role</span>
+        </a>
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+    <?php }elseif($this->uri->segment('1') != 'user' ) { ?>
+      <li class="nav-item ">
+       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-database"></i>
+          <span>User & Role</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+    <?php  
+       }
+    ?>
+            <?php 
+            if( $this->uri->segment('2') == 'data_user' ){?>
+            <a class="collapse-item active" href="<?php echo base_url('user/data_user') ?>">Data User</a>
+            <?php }elseif($this->uri->segment('2') != 'data_user' ) { ?>
+            <a class="collapse-item" href="<?php echo base_url('user/data_user') ?>">Data User</a>
+            <?php  
+               }
+            ?>
 
-                 <?php   if( $this->uri->segment('2') == 'data_user' ){?>
-          <li class="nav-item active">
-          <?php }elseif($this->uri->segment('2') != 'data_user' ) { 
-          ?>
-          <li class="nav-item">
-          <?php  
-          }
-          ?>
-                <a class="nav-link" href="<?php echo base_url('data_user') ?>">
-                  <i class="fas fa-fw fa-eye"></i>
-                  <span>Data User</span></a>
-                </li>
+            <?php 
+            if( $this->uri->segment('2') == 'role' ){?>
+            <a class="collapse-item active" href="<?php echo base_url('user/role') ?>">Data Role</a>
+            <?php }elseif($this->uri->segment('2') != 'role' ) { ?>
+            <a class="collapse-item" href="<?php echo base_url('user/role') ?>">Data Role</a>
+            <?php  
+               }
+            ?>
+          </div>
+        </div>
+      </li>
+
 
 
                 <!-- Divider -->

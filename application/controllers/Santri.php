@@ -205,20 +205,6 @@ class Santri extends CI_Controller {
 
 		$data['asrama']=$this->santri_model->get_asrama()->result();
 
-
-		// if($this->input->post('nis') != $data['santri']->NIS) {
-		// 	$is_unique =  '|is_unique[data_santri.nis]';
-		// } else {
-		// 	$is_unique =  '';
-		// }
-
-		// $this->form_validation->set_rules('nis','Nis','required|numeric|'.$is_unique,
-		// 	array(
-		// 		'required'=>'Form Nis Wajib di isi.',
-		// 		'numeric'=>'nis harus diisi dengan angka',
-		// 		// 'exact_length'=>'nis harus berjumlah 10 angka',
-		// 		'is_unique' =>'Nis %s sudah ada')
-		// 	);
 		$this->form_validation->set_rules('nama_santri','Nama Santri','required|min_length[3]',
 			array(
 				'required'=>'Form Nama Wajib di isi.',
