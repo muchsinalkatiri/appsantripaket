@@ -18,8 +18,11 @@ class Dashboard extends CI_Controller {
 		// Must login
 
 		$data['paket']=$this->db_model->get_5paket_teratas()->result();
+		$data['kategori']=$this->db_model->get_paket_kategori()->result();
+		$data['bulan']=$this->db_model->get_paket_bulan()->result();
 		// $data['paket_sita']=$this->db_model->get_paket_sita()->result();
 		$this->load->view('v_db',$data);
+		// print_r($this-)
 	}
 	
 }
